@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas - Virtual Smartboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f6d365, #fda085);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .header {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+
+    .canvas-container {
+      margin-top: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .btn-back {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      background: #5c67f2;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+
+    .btn-back:hover {
+      background-color: #4a54e1;
+      transform: scale(1.05);
+    }
+
+    .info-note {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #222;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .launch-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .launch-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <button class="btn-back" onclick="window.location.href='/'">← Back to Home</button>
+
+  <div class="header">
+    <h1>🎨 Virtual Smartboard Canvas</h1>
+  </div>
+
+  <div class="canvas-container">
+    <!-- <p class="info-note">To launch the canvas, click the button below to run <code>canvas.py</code>.</p> -->
+    <p class="info-note">This is your main drawing space powered by OpenCV + MediaPipe.</p>
+    <img src="{{ url_for('static', filename='canvas_placeholder.png') }}" alt="Canvas Preview" width="800" height="471">
+  </div>
+
+  <form action="/launch-canvas" method="post">
+    <button type="submit" class="launch-button">Launch Virtual Smartboard</button>
+  </form>
+</body>
+</html>

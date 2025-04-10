@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Virtual Smartboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+    }
+
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 60px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-out;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      color: #333;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 15px 28px;
+      font-size: 16px;
+      color: white;
+      background-color: #5c67f2;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #4752d6;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #5c67f2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #4752d6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Virtual Smartboard</h1>
+    <div class="btn-group">
+      <button onclick="window.location.href='/canvas'">Launch Canvas</button>
+      <button onclick="showModal('instructionsModal')">Instructions</button>
+      <button onclick="showModal('featuresModal')">Features</button>
+    </div>
+  </div>
+
+  <!-- Instructions Modal -->
+  <div class="modal" id="instructionsModal">
+    <div class="modal-content">
+      <h2>Instructions</h2>
+      <ul>
+        <li>Use hand gestures to draw on the canvas.</li>
+        <li>Click color buttons to switch brush colors.</li>
+        <li>Select a shape and pinch your fingers to resize.</li>
+        <li>Click "Clear" to erase the canvas.</li>
+        <li>Use "Web" to open a custom URL.</li>
+        <li>Use "Table" to draw a grid on the canvas.</li>
+      </ul>
+      <!-- <h2>✋ Hand Gesture Guide</h2>
+      <ul>
+        <li>👉 <strong>Writing Gesture:</strong> Keep your **index finger extended** and **thumb away** — like pointing. This will activate the drawing mode and draw on the canvas.</li>
+        <li>✋ <strong>Stop Writing Gesture:</strong> Bring your **thumb and index finger close together** (pinch gesture). This will stop drawing and move the cursor without drawing.</li>
+      </ul> -->
+
+      <img src="{{ url_for('static', filename='gesture_write_stop.png') }}" alt="Gesture Instructions" width="400" style="margin-top:10px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+
+      <button class="close-btn" onclick="hideModal('instructionsModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Features Modal -->
+  <div class="modal" id="featuresModal">
+    <div class="modal-content">
+      <h2>Features</h2>
+      <ul>
+        <li>Hand tracking with MediaPipe</li>
+        <li>Draw using gestures (no mouse needed!)</li>
+        <li>Shape creation: Circle, Square, Rectangle, Triangle</li>
+        <li>Resizable shapes using finger distance</li>
+        <li>Dynamic table generation</li>
+        <li>Open websites from the canvas</li>
+      </ul>
+      <button class="close-btn" onclick="hideModal('featuresModal')">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function showModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function hideModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
